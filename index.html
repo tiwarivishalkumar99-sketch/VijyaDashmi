@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shubh Vijayadashami 🙏</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: linear-gradient(135deg, #3a0007, #1a0003);
+            color: #fff;
+            font-family: 'Segoe UI', Georgia, serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+        }
+        .container {
+            background: rgba(0, 0, 0, 0.75);
+            padding: 30px;
+            border-radius: 20px;
+            border: 2px solid #ffaa00;
+            box-shadow: 0 0 35px rgba(255, 170, 0, 0.4);
+            width: 90%;
+            max-width: 480px;
+            z-index: 10;
+            backdrop-filter: blur(8px);
+        }
+        h1 {
+            color: #ffcc00;
+            font-size: 2rem;
+            text-shadow: 0 0 10px #ff4500;
+            margin-bottom: 15px;
+        }
+        /* Ravan Image Container */
+        .ravan-container {
+            width: 200px;
+            height: 250px;
+            margin: 20px auto;
+            position: relative;
+            perspective: 1000px;
+        }
+        .ravan-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: all 0.8s ease;
+        }
+        /* Burning & Fading Effect */
+        .burning {
+            filter: sepia(1) saturate(5) hue-rotate(-50deg) brightness(1.2) drop-shadow(0 0 20px #ff3300);
+            animation: burnAndFade 2s forwards;
+        }
+        @keyframes burnAndFade {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05) rotate(2deg); filter: brighness(2) drop-shadow(0 0 40px #ff6600); }
+            100% { transform: scale(0.8); opacity: 0; filter: brightness(0); display: none; }
+        }
+        /* Typewriter Wishes */
+        #wishes-text {
+            font-size: 1.2rem;
+            color: #ffdd99;
+            font-weight: 500;
+            min-height: 80px;
+            margin: 20px 0;
+            line-height: 1.6;
+        }
+        .action-btn {
+            background: linear-gradient(90deg, #ff4500, #ffcc00);
+            color: #000;
+            border: none;
+            padding: 14px 35px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(255, 69, 0, 0.4);
+            transition: 0.3s ease;
+        }
+        .action-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 25px rgba(255, 204, 0, 0.6);
+        }
+        /* Traditional Sparkles */
+        .sparkle {
+            position: absolute;
+            background: #ffaa00;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            animation: fly 4s linear infinite;
+            opacity: 0.6;
+        }
+        @keyframes fly {
+            0% { transform: translateY(105vh) translateX(0); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-5vh) translateX(40px); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Vijayadashami ki Hardik Shubhkamnaye! 🙏</h1>
+        
+        <!-- Ravan Real Image Setup -->
+        <div class="ravan-container">
+            <img src="https://unsplash.com" id="ravanImg" class="ravan-img" alt="Ravan">
+        </div>
+        
+        <!-- Respectful Greetings Display -->
+        <div id="wishes-text">पावन पर्व पर रावण दहन के लिए नीचे छुएं... 👇</div>
+
+        <!-- Sacred Fire Trigger -->
+        <button class="action-btn" id="shootBtn">🏹 श्री राम बाण चलाएं</button>
+    </div>
+
+    <!-- Festive Devotional/Energetic Music -->
+    <audio id="festiveMusic" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // Respectful & Deep Meaning Wishes for All Age Groups
+        const textArray = [
+            "बुराई पर अच्छाई और असत्य पर सत्य की सदा जीत हो... ✨",
+            "इस पावन अवसर पर आपके जीवन से दुखों का नाश हो। 🙏",
+            "विजयादशमी का यह पर्व आपके परिवार में सुख, समृद्धि और शांति लाए। 🌸",
+            "आपको और आपके पूरे परिवार को दशहरे की हार्दिक शुभकामनाएं! 🎉",
+            "जय श्री राम! 🏹"
+        ];
+        
+        let arrayIndex = 0;
+        let charIndex = 0;
+        const wishesElement = document.getElementById("wishes-text");
+        const ravanImg = document.getElementById("ravanImg");
+        const shootBtn = document.getElementById("shootBtn");
+        const music = document.getElementById("festiveMusic");
+
+        function type() {
+            if (charIndex < textArray[arrayIndex].length) {
+                wishesElement.innerHTML += textArray[arrayIndex].charAt(charIndex);
+                charIndex++;
+                setTimeout(type, 60);
+            } else {
+                setTimeout(erase, 3000);
+            }
+        }
+
+        function erase() {
+            if (charIndex > 0) {
+                wishesElement.innerHTML = textArray[arrayIndex].substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(erase, 30);
+            } else {
+                arrayIndex = (arrayIndex + 1) % textArray.length;
+                setTimeout(type, 500);
+            }
+        }
+
+        // Shoot Arrow and Burn Ravan
+        shootBtn.addEventListener("click", () => {
+            // Apply burning animation effects
+            ravanImg.classList.add("burning");
+            
+            // Start Devotional/Dynamic Music
+            music.play().catch(err => console.log("Audio Error:", err));
+            
+            // Hide button and initiate the pure wishes sequence
+            shootBtn.style.display = "none";
+            wishesElement.innerHTML = "";
+            
+            setTimeout(() => {
+                type();
+            }, 1000);
+        });
+
+        // Background Divine Sparkles
+        function createSparkle() {
+            const sparkle = document.createElement("div");
+            sparkle.classList.add("sparkle");
+            sparkle.style.left = Math.random() * 100 + "vw";
+            sparkle.style.animationDuration = Math.random() * 2 + 3 + "s";
+            document.body.appendChild(sparkle);
+            setTimeout(() => sparkle.remove(), 5000);
+        }
+        setInterval(createSparkle, 250);
+    </script>
+</body>
+</html>
